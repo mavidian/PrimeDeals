@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Copyright>Copyright © 2020 Mavidian Technologies Limited Liability Company. All Rights Reserved.</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Stateless" Version="5.1.4" />
+  </ItemGroup>
+
+</Project>
