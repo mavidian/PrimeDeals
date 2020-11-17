@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeDeals.Core", "PrimeDea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeDeals.Data", "PrimeDeals.Data\PrimeDeals.Data.csproj", "{383830F1-6B4F-4A4C-AB18-3C1E13914D64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeDeals.Services", "PrimeDeals.Services\PrimeDeals.Services.csproj", "{F990FD50-6410-47BC-BDA0-0CD80B35558D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeDeals.Services", "PrimeDeals.Services\PrimeDeals.Services.csproj", "{F990FD50-6410-47BC-BDA0-0CD80B35558D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8DDB3209-2174-488A-94B2-3EFACB8EC763}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

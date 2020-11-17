@@ -21,5 +21,5 @@ Please make sure to update tests as appropriate.
 ## Copyright
 
 ```
-Copyright © 2019 Mavidian Technologies Limited Liability Company. All Rights Reserved.
+Copyright © 2020 Mavidian Technologies Limited Liability Company. All Rights Reserved.
 ```
