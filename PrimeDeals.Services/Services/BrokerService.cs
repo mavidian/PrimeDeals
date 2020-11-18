@@ -5,7 +5,6 @@ using PrimeDeals.Core.Interfaces.Services;
 using PrimeDeals.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PrimeDeals.Services.Services
 {
