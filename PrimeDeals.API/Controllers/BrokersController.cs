@@ -59,12 +59,7 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Get(string id)
       {
-         ////var svcRslt = await _brokerService.GetByIdAsync(id);
-         ////if (!svcRslt.Success) return NotFound();
-         ////return Ok(svcRslt.Value);
-
          var svcRslt = await _mediator.Send(new GetBrokerByIdQuery { Id = id });
-         ////var svcRslt = await _mediator.Send(new GetByIdQuery<GetBrokerDTO> { Id = id });
          if (!svcRslt.Success) return NotFound();
          return Ok(svcRslt.Value);
       }
@@ -83,13 +78,7 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
       public async Task<IActionResult> Create([FromBody] AddBrokerDTO broker, ApiVersion version)
       {
-         ////if (broker == null) return BadRequest();
-         ////var svcRslt = await _brokerService.AddAsync(broker);
-         ////if (!svcRslt.Success) return BadRequest(svcRslt.Message);
-         ////return CreatedAtRoute("GetBrokerById", new { id = svcRslt.Value.Id, version = version.ToString() }, svcRslt.Value);
-
          var svcRslt = await _mediator.Send(new AddBrokerCommand { NewEntity = broker });
-         ////var svcRslt = await _mediator.Send(new AddCommand<AddBrokerDTO, GetBrokerDTO> { NewEntity = broker });
          if (!svcRslt.Success) return BadRequest(svcRslt.Message);
          return CreatedAtRoute("GetBrokerById", new { id = svcRslt.Value.Id, version = version.ToString() }, svcRslt.Value);
       }
