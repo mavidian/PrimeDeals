@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using PrimeDeals.Data.Persistence;
 using PrimeDeals.Data.Repositories;
 using PrimeDeals.Services;
 using PrimeDeals.Services.Services;
+using PrimeDeals.Services.Validatorrs.Broker;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,8 +39,9 @@ namespace PrimeDeals.API
       // This method gets called by the runtime. Use this method to add services to the container.
       public void ConfigureServices(IServiceCollection services)
       {
-         services.AddControllers();
-
+         services.AddControllers()
+                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<AddBrokerDTOValidator>());
+                                          
          services.AddApiVersioning(o =>
          {
             o.ApiVersionReader = new UrlSegmentApiVersionReader();
