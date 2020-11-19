@@ -1,12 +1,7 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PrimeDeals.Core.DTOs.Broker;
 using PrimeDeals.Core.Interfaces.Services;
-using PrimeDeals.Services.Commands;
-using PrimeDeals.Services.Commands.Brokers;
-using PrimeDeals.Services.Queries;
-using PrimeDeals.Services.Queries.Brokers;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,16 +15,9 @@ namespace PrimeDeals.API.Controllers
    public class BrokersController : ControllerBase
    {
       private readonly IBrokerService _brokerService;
-      //TODO: remove _brokerService once Mediator complete
-      ////public BrokersController(IBrokerService brokerService)
-      ////{
-      ////   _brokerService = brokerService;
-      ////}
-      private readonly IMediator _mediator;
 
-      public BrokersController(IMediator mediator, IBrokerService brokerService)
+      public BrokersController(IBrokerService brokerService)
       {
-         _mediator = mediator;
          _brokerService = brokerService;
       }
 
@@ -59,7 +47,7 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Get(string id)
       {
-         var svcRslt = await _mediator.Send(new GetBrokerByIdQuery { Id = id });
+         var svcRslt = await _brokerService.GetByIdAsync(id);
          if (!svcRslt.Success) return NotFound();
          return Ok(svcRslt.Value);
       }
@@ -78,8 +66,9 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
       public async Task<IActionResult> Create([FromBody] AddBrokerDTO broker, ApiVersion version)
       {
-         var svcRslt = await _mediator.Send(new AddBrokerCommand { NewEntity = broker });
-         if (!svcRslt.Success) return BadRequest(svcRslt.Message);
+         if (broker == null) return BadRequest();
+         var svcRslt = await _brokerService.AddAsync(broker);
+         if (! svcRslt.Success) return BadRequest(svcRslt.Message);
          return CreatedAtRoute("GetBrokerById", new { id = svcRslt.Value.Id, version = version.ToString() }, svcRslt.Value);
       }
 

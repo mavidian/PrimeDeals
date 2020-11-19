@@ -1,5 +1,4 @@
 using AutoMapper;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +13,6 @@ using PrimeDeals.Core.Interfaces.Services;
 using PrimeDeals.Data.Persistence;
 using PrimeDeals.Data.Repositories;
 using PrimeDeals.Services;
-using PrimeDeals.Services.Queries;
-using PrimeDeals.Services.Queries.Brokers;
 using PrimeDeals.Services.Services;
 using System;
 using System.Collections.Generic;
@@ -76,8 +73,6 @@ namespace PrimeDeals.API
          services.AddSingleton<IBrokerService, BrokerService>();
          services.AddSingleton<ISaleService, SaleService>();
          services.AddSingleton<IPolicyService, PolicyService>();
-         //TOOD: remove above once MediatR complete
-         services.AddMediatR(typeof(GetBrokerByIdQuery));
 
          services.AddSingleton<IUnitOfWork, UnitOfWork>();
 
