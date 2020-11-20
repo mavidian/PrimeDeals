@@ -17,6 +17,8 @@ namespace PrimeDeals.Core.Interfaces.Repositories
       Task<bool> ReplaceAsync(string id, TEntity entity);
       Task<bool> DeleteAsync(string id);
 
+      bool ContainsId(string id);
+
       //"default" values to be "overridden" in derived interfaces:
       static string StoragePrefix => "GenericState_";
       static string IdPrefix => "X";

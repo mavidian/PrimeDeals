@@ -81,7 +81,7 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
       public async Task<IActionResult> Create([FromBody] SetPolicyDTO policy, ApiVersion version)
       {
-         if (policy == null) return BadRequest();
+         //if (policy == null) return BadRequest();  //not needed as middleware only calls this action when policy is deserialized (possibly default); otherwise, it sends 400 (Bad Request) on its own (e.g. if malformed JSON payload).
          var svcRslt = await _policyService.AddAsync(policy);
          if (!svcRslt.Success) return BadRequest(svcRslt.Message);
          return CreatedAtRoute("GetPolicyById", new { id = svcRslt.Value.Id, version = version.ToString() }, svcRslt.Value);
@@ -103,8 +103,8 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Replace(string id, [FromBody] SetPolicyDTO policy)
       {
-         ////if (policy == null) return BadRequest();
-         ////if (policy.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{policy.Id}' is invalid."));
+         //if (id == null) return BadRequest();  //not needed as middleware only calls this action if id is present; otherwise, it will try a different route, e.g. causing 405 (Method Not Allowed) if PUT request w/o id.
+         //if (policy == null) return BadRequest();  //not needed as middleware only calls this action when policy is deserialized (possibly default); otherwise, it sends 400 (Bad Request) on its own (e.g. if malformed JSON payload).
          var svcRslt = await _policyService.ReplaceAsync(id, policy);
          if (!svcRslt.Success) return NotFound();
          return NoContent();
@@ -123,6 +123,7 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Delete(string id)
       {
+         //if (id == null) return BadRequest();  //not needed as middleware only calls this action if id is present; otherwise, it will try a different route, e.g. causing 405 (Method Not Allowed) if PUT request w/o id.
          var svcRslt = await _policyService.DeleteAsync(id);
          if (!svcRslt.Success) return NotFound();
          return NoContent();

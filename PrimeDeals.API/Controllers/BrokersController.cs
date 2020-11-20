@@ -66,7 +66,7 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
       public async Task<IActionResult> Create([FromBody] SetBrokerDTO broker, ApiVersion version)
       {
-         if (broker == null) return BadRequest();
+         //if (broker == null) return BadRequest();  //not needed as middleware only calls this action when broker is deserialized (possibly default); otherwise, it sends 400 (Bad Request) on its own (e.g. if malformed JSON payload).
          var svcRslt = await _brokerService.AddAsync(broker);
          if (! svcRslt.Success) return BadRequest(svcRslt.Message);
          return CreatedAtRoute("GetBrokerById", new { id = svcRslt.Value.Id, version = version.ToString() }, svcRslt.Value);
@@ -88,9 +88,8 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Replace(string id, [FromBody] SetBrokerDTO broker)
       {
-         ////if (broker == null) return BadRequest();
-         ////if (broker.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{broker.Id}' is invalid."));
- 
+         //if (id == null) return BadRequest();  //not needed as middleware only calls this action if id is present; otherwise, it will try a different route, e.g. causing 405 (Method Not Allowed) if PUT request w/o id.
+         //if (broker == null) return BadRequest();  //not needed as middleware only calls this action when broker is deserialized (possibly default); otherwise, it sends 400 (Bad Request) on its own (e.g. if malformed JSON payload).
          var svcRslt = await _brokerService.ReplaceAsync(id, broker);
          if (!svcRslt.Success) return NotFound();
          return NoContent();
@@ -109,6 +108,7 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Delete(string id)
       {
+         //if (id == null) return BadRequest();  //not needed as middleware only calls this action if id is present; otherwise, it will try a different route, e.g. causing 405 (Method Not Allowed) if PUT request w/o id.
          var svcRslt = await _brokerService.DeleteAsync(id);
          if (!svcRslt.Success) return NotFound();
          return NoContent();

@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
 using PrimeDeals.Core.DTOs.Broker;
-using PrimeDeals.Services.Validators;
 
-namespace PrimeDeals.Services.Validatorrs.Broker
+namespace PrimeDeals.Services.Validators
 {
    public class SetBrokerDTOValidator : AbstractValidator<SetBrokerDTO>
    {

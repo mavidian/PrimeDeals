@@ -15,7 +15,7 @@ using PrimeDeals.Data.Persistence;
 using PrimeDeals.Data.Repositories;
 using PrimeDeals.Services;
 using PrimeDeals.Services.Services;
-using PrimeDeals.Services.Validatorrs.Broker;
+using PrimeDeals.Services.Validators;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -37,6 +37,11 @@ namespace PrimeDeals.Data.Repositories
          await Task.CompletedTask;
       }
 
+      public bool ContainsId(string id)
+      {
+         return _entities.ContainsKey(id);
+      }
+
       public async Task<bool> DeleteAsync(string id)
       {
          return await Task.FromResult(_entities.Remove(id));
