@@ -2,7 +2,10 @@
 
 namespace PrimeDeals.Core.DTOs.Policy
 {
-   public class AddPolicyDTO
+   /// <summary>
+   /// Applicable to POST and PUT actions
+   /// </summary
+   public class SetPolicyDTO
    {
       public string SaleId { get; set; }
       public string ProductName { get; set; } = "Unknown Product";

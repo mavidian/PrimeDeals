@@ -79,7 +79,7 @@ namespace PrimeDeals.API.Controllers
       [HttpPost]
       [ProducesResponseType(StatusCodes.Status201Created)]
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
-      public async Task<IActionResult> Create([FromBody] AddPolicyDTO policy, ApiVersion version)
+      public async Task<IActionResult> Create([FromBody] SetPolicyDTO policy, ApiVersion version)
       {
          if (policy == null) return BadRequest();
          var svcRslt = await _policyService.AddAsync(policy);
@@ -101,11 +101,11 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status204NoContent)]
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
       [ProducesResponseType(StatusCodes.Status404NotFound)]
-      public async Task<IActionResult> Update(string id, [FromBody] ReplacePolicyDTO policy)
+      public async Task<IActionResult> Replace(string id, [FromBody] SetPolicyDTO policy)
       {
-         if (policy == null) return BadRequest();
-         if (policy.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{policy.Id}' is invalid."));
-         var svcRslt = await _policyService.ReplaceAsync(policy);
+         ////if (policy == null) return BadRequest();
+         ////if (policy.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{policy.Id}' is invalid."));
+         var svcRslt = await _policyService.ReplaceAsync(id, policy);
          if (!svcRslt.Success) return NotFound();
          return NoContent();
       }

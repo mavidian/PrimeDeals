@@ -2,7 +2,7 @@
 
 namespace PrimeDeals.Core.Interfaces.Services
 {
-   public interface IBrokerService : IService<GetBrokerDTO, AddBrokerDTO, ReplaceBrokerDTO>
+   public interface IBrokerService : IService<GetBrokerDTO, SetBrokerDTO>
    {
 
    }

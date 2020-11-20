@@ -40,7 +40,7 @@ namespace PrimeDeals.API
       public void ConfigureServices(IServiceCollection services)
       {
          services.AddControllers()
-                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<AddBrokerDTOValidator>());
+                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<SetBrokerDTOValidator>());
                                           
          services.AddApiVersioning(o =>
          {

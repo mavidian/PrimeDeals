@@ -2,7 +2,7 @@
 
 namespace PrimeDeals.Core.Interfaces.Services
 {
-   public interface IPolicyService : IService<GetPolicyDTO, AddPolicyDTO, ReplacePolicyDTO>
+   public interface IPolicyService : IService<GetPolicyDTO, SetPolicyDTO>
    {
 
    }

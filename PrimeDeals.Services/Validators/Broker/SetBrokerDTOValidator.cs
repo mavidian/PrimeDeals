@@ -4,9 +4,9 @@ using PrimeDeals.Services.Validators;
 
 namespace PrimeDeals.Services.Validatorrs.Broker
 {
-   public class AddBrokerDTOValidator : AbstractValidator<AddBrokerDTO>
+   public class SetBrokerDTOValidator : AbstractValidator<SetBrokerDTO>
    {
-      public AddBrokerDTOValidator()
+      public SetBrokerDTOValidator()
       {
          RuleFor(b => b.Name).NotEmpty();
          RuleFor(x => x.Address).NotNull().SetValidator(new AddressValidator());

@@ -2,9 +2,7 @@
 using PrimeDeals.Core.Interfaces.Models;
 using PrimeDeals.Core.Interfaces.Repositories;
 using PrimeDeals.Core.Interfaces.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrimeDeals.Services.Services
@@ -14,9 +12,9 @@ namespace PrimeDeals.Services.Services
    /// </summary>
    /// <typeparam name="TEntity"></typeparam>
    /// <typeparam name="TGetDTO"></typeparam>
-   /// <typeparam name="TAddDTO"></typeparam>
+   /// <typeparam name="TSetDTO"></typeparam>
    /// <typeparam name="TReplaceDTO"></typeparam>
-   public abstract class Service<TEntity, TGetDTO, TAddDTO, TReplaceDTO> : IService<TGetDTO, TAddDTO, TReplaceDTO> where TEntity : IEntity
+   public abstract class Service<TEntity, TGetDTO, TSetDTO> : IService<TGetDTO, TSetDTO> where TEntity : IEntity
    {
       //Marked abstract as derived ctor is needed to supply the required repolistory.
 
@@ -28,7 +26,7 @@ namespace PrimeDeals.Services.Services
          _mapper = mapper;
       }
 
-      public async Task<IServiceResult<TGetDTO>> AddAsync(TAddDTO newEntity)
+      public async Task<IServiceResult<TGetDTO>> AddAsync(TSetDTO newEntity)
       {
          var entity = _mapper.Map<TEntity>(newEntity);
          await _repository.AddAsync(entity);  //will assign Id
@@ -63,9 +61,9 @@ namespace PrimeDeals.Services.Services
          return new ServiceResult<TGetDTO> { Success = entity != null, Value = _mapper.Map<TGetDTO>(entity) };
       }
 
-      public async Task<IServiceResult> ReplaceAsync(TReplaceDTO replacementEntity)
+      public async Task<IServiceResult> ReplaceAsync(string id, TSetDTO replacementEntity)
       {
-         var success = await _repository.ReplaceAsync(_mapper.Map<TEntity>(replacementEntity));
+         var success = await _repository.ReplaceAsync(id, _mapper.Map<TEntity>(replacementEntity));
          return new ServiceResult { Success = success };
       }
    }

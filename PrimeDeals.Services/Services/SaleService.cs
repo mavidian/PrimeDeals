@@ -6,7 +6,7 @@ using PrimeDeals.Core.Models;
 
 namespace PrimeDeals.Services.Services
 {
-   public class SaleService : Service<Sale,GetSaleDTO,AddSaleDTO,ReplaceSaleDTO>, ISaleService
+   public class SaleService : Service<Sale,GetSaleDTO,SetSaleDTO>, ISaleService
    {
       public SaleService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper)
       {

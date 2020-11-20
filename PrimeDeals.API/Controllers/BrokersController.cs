@@ -64,7 +64,7 @@ namespace PrimeDeals.API.Controllers
       [HttpPost]
       [ProducesResponseType(StatusCodes.Status201Created)]
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
-      public async Task<IActionResult> Create([FromBody] AddBrokerDTO broker, ApiVersion version)
+      public async Task<IActionResult> Create([FromBody] SetBrokerDTO broker, ApiVersion version)
       {
          if (broker == null) return BadRequest();
          var svcRslt = await _brokerService.AddAsync(broker);
@@ -86,12 +86,12 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status204NoContent)]
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
       [ProducesResponseType(StatusCodes.Status404NotFound)]
-      public async Task<IActionResult> Update(string id, [FromBody] ReplaceBrokerDTO broker)
+      public async Task<IActionResult> Replace(string id, [FromBody] SetBrokerDTO broker)
       {
          ////if (broker == null) return BadRequest();
          ////if (broker.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{broker.Id}' is invalid."));
  
-         var svcRslt = await _brokerService.ReplaceAsync(broker);
+         var svcRslt = await _brokerService.ReplaceAsync(id, broker);
          if (!svcRslt.Success) return NotFound();
          return NoContent();
       }

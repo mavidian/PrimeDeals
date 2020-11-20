@@ -15,28 +15,20 @@ namespace PrimeDeals.Services
       public MappingProfile()
       {
          CreateMap<Broker, GetBrokerDTO>();
-         CreateMap<AddBrokerDTO, Broker>()
-            .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<BrokerState>()));
-         CreateMap<ReplaceBrokerDTO, Broker>()
+         CreateMap<SetBrokerDTO, Broker>()
             .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<BrokerState>()));
 
          CreateMap<Sale, GetSaleDTO>()
             .ForMember(d => d.BrokerId, o => o.MapFrom(s => s.ParentId));
-         CreateMap<AddSaleDTO, Sale>()
+         CreateMap<SetSaleDTO, Sale>()
             .ForMember(s => s.ParentId, o => o.MapFrom(d => d.BrokerId))
-             .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<SaleState>()));
-         CreateMap<ReplaceSaleDTO, Sale>()
-            .ForMember(s => s.ParentId, o => o.MapFrom(d => d.BrokerId))
-             .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<SaleState>()));
+            .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<SaleState>()));
 
          CreateMap<Policy, GetPolicyDTO>()
             .ForMember(d => d.SaleId, o => o.MapFrom(p => p.ParentId));
-         CreateMap<AddPolicyDTO, Policy>()
+         CreateMap<SetPolicyDTO, Policy>()
             .ForMember(p => p.ParentId, o => o.MapFrom(d => d.SaleId))
-              .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<PolicyState>()));
-         CreateMap<ReplacePolicyDTO, Policy>()
-            .ForMember(p => p.ParentId, o => o.MapFrom(d => d.SaleId))
-              .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<PolicyState>()));
+            .ForMember(b => b.State, o => o.MapFrom(d => d.State.ToEnum<PolicyState>()));
       }
 
    }

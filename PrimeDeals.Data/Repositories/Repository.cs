@@ -2,6 +2,7 @@
 using PrimeDeals.Core.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -64,10 +65,12 @@ namespace PrimeDeals.Data.Repositories
          return await Task.FromResult(entityToReturn);
       }
 
-      public async Task<bool> ReplaceAsync(TEntity entity)
+      public async Task<bool> ReplaceAsync(string id, TEntity entity)
       {
-         if (!_entities.ContainsKey(entity.Id)) return await Task.FromResult(false);
-         _entities[entity.Id] = entity;
+         Debug.Assert(entity.Id == null);  //Ids are immutable, so no values allowed in the request body
+         entity.Id = id;
+         if (!_entities.ContainsKey(id)) return await Task.FromResult(false);
+         _entities[id] = entity;
          return await Task.FromResult(true);
       }
 

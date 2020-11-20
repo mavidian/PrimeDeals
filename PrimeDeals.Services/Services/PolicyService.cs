@@ -6,7 +6,7 @@ using PrimeDeals.Core.Models;
 
 namespace PrimeDeals.Services.Services
 {
-   public class PolicyService : Service<Policy,GetPolicyDTO,AddPolicyDTO,ReplacePolicyDTO>, IPolicyService
+   public class PolicyService : Service<Policy,GetPolicyDTO,SetPolicyDTO>, IPolicyService
    {
       public PolicyService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper)
       {

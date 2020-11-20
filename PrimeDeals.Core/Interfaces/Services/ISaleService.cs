@@ -2,7 +2,7 @@
 
 namespace PrimeDeals.Core.Interfaces.Services
 {
-   public interface ISaleService : IService<GetSaleDTO, AddSaleDTO, ReplaceSaleDTO>
+   public interface ISaleService : IService<GetSaleDTO, SetSaleDTO>
    {
 
    }

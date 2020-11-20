@@ -79,7 +79,7 @@ namespace PrimeDeals.API.Controllers
       [HttpPost]
       [ProducesResponseType(StatusCodes.Status201Created)]
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
-      public async Task<IActionResult> Create([FromBody] AddSaleDTO sale, ApiVersion version)
+      public async Task<IActionResult> Create([FromBody] SetSaleDTO sale, ApiVersion version)
       {
          if (sale == null) return BadRequest();
          var svcRslt = await _saleService.AddAsync(sale);
@@ -101,11 +101,11 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status204NoContent)]
       [ProducesResponseType(StatusCodes.Status400BadRequest)]
       [ProducesResponseType(StatusCodes.Status404NotFound)]
-      public async Task<IActionResult> Update(string id, [FromBody] ReplaceSaleDTO sale)
+      public async Task<IActionResult> Replace(string id, [FromBody] SetSaleDTO sale)
       {
-         if (sale == null) return BadRequest();
-         if (sale.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{sale.Id}' is invalid."));
-         var svcRslt = await _saleService.ReplaceAsync(sale);
+         ////if (sale == null) return BadRequest();
+         ////if (sale.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{sale.Id}' is invalid."));
+         var svcRslt = await _saleService.ReplaceAsync(id, sale);
          if (!svcRslt.Success) return NotFound();
          return NoContent();
       }

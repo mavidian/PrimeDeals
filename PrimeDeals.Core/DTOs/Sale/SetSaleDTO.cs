@@ -2,7 +2,10 @@
 
 namespace PrimeDeals.Core.DTOs.Sale
 {
-   public class AddSaleDTO
+   /// <summary>
+   /// Applicable to POST and PUT actions
+   /// </summary
+   public class SetSaleDTO
    {
       public string BrokerId { get; set; }
       public string GroupName { get; set; } = "Unknown Group";

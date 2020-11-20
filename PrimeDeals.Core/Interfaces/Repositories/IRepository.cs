@@ -14,7 +14,7 @@ namespace PrimeDeals.Core.Interfaces.Repositories
       IAsyncEnumerable<TEntity> GetAllAsync(string parentId);
       Task<TEntity> GetByIdAsync(string id);
       Task AddAsync(TEntity entity);
-      Task<bool> ReplaceAsync(TEntity entity);
+      Task<bool> ReplaceAsync(string id, TEntity entity);
       Task<bool> DeleteAsync(string id);
 
       //"default" values to be "overridden" in derived interfaces:
