@@ -88,8 +88,9 @@ namespace PrimeDeals.API.Controllers
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Update(string id, [FromBody] ReplaceBrokerDTO broker)
       {
-         if (broker == null) return BadRequest();
-         if (broker.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{broker.Id}' is invalid."));
+         ////if (broker == null) return BadRequest();
+         ////if (broker.Id != id) return BadRequest(this.BadRequestDetails("Id mismatch detected.", $"Id values are immutable; an attempt to change '{id}' into '{broker.Id}' is invalid."));
+ 
          var svcRslt = await _brokerService.ReplaceAsync(broker);
          if (!svcRslt.Success) return NotFound();
          return NoContent();

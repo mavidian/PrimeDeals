@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PrimeDeals.Services.Validators
 {
-   class AddressValidator : AbstractValidator<Address>
+   public class AddressValidator : AbstractValidator<Address>
    {
       public AddressValidator()
       {
