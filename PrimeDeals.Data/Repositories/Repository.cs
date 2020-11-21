@@ -42,6 +42,11 @@ namespace PrimeDeals.Data.Repositories
          return _entities.ContainsKey(id);
       }
 
+      public bool ContainsParentId(string parentId)
+      {
+         return _entities.Any(e => e.Value.ParentId == parentId);
+      }
+
       public async Task<bool> DeleteAsync(string id)
       {
          return await Task.FromResult(_entities.Remove(id));

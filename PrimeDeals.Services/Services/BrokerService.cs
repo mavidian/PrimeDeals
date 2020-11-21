@@ -19,5 +19,10 @@ namespace PrimeDeals.Services.Services
       {
          throw new InvalidOperationException("There is no parent entity for brokers.");
       }
+
+      public override bool ContainsParentId(string parentId)
+      {
+         throw new InvalidOperationException("There is no parent entity for brokers.");
+      }
    }
 }

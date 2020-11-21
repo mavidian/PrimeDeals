@@ -18,6 +18,7 @@ namespace PrimeDeals.Core.Interfaces.Repositories
       Task<bool> DeleteAsync(string id);
 
       bool ContainsId(string id);
+      bool ContainsParentId(string parentId); //true if one or more records point(s) to a given parent
 
       //"default" values to be "overridden" in derived interfaces:
       static string StoragePrefix => "GenericState_";

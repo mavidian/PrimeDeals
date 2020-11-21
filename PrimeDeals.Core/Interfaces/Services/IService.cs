@@ -16,5 +16,7 @@ namespace PrimeDeals.Core.Interfaces.Services
       Task<IServiceResult<TGetDTO>> AddAsync(TSetDTO newEntity);  //return newly added entity w/Id
       Task<IServiceResult> ReplaceAsync(string id, TSetDTO replacementEntity);
       Task<IServiceResult> DeleteAsync(string id);
+
+      bool ContainsParentId(string parentId);
    }
 }

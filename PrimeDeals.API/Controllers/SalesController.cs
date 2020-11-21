@@ -15,10 +15,12 @@ namespace PrimeDeals.API.Controllers
    public class SalesController : ControllerBase
    {
       private readonly ISaleService _saleService;
+      private readonly IPolicyService _policyService;
 
-      public SalesController(ISaleService saleService)
+      public SalesController(ISaleService saleService, IPolicyService policyService)
       {
          _saleService = saleService;
+         _policyService = policyService;
       }
 
 
@@ -112,18 +114,23 @@ namespace PrimeDeals.API.Controllers
 
 
       /// <summary>
-      /// Remove an existing Sale.
+      /// Remove an existing Sale (as long as it has no Policies).
       /// </summary>
       /// <param name="id">ID of the Sale to remove.</param>
       /// <returns>An empty response.</returns>
       /// <response code="204">No Content - Sale successfully removed.</response>
+      /// <response code="400">Bad Request - Policy(ies) for the Sale is/are present.</response>
       /// <response code="404">Not Found - no Sale for a given id.</response>
       [HttpDelete("{id}")]
       [ProducesResponseType(StatusCodes.Status204NoContent)]
+      [ProducesResponseType(StatusCodes.Status400BadRequest)]
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Delete(string id)
       {
          //if (id == null) return BadRequest();  //not needed as middleware only calls this action if id is present; otherwise, it will try a different route, e.g. causing 405 (Method Not Allowed) if PUT request w/o id.
+         if (_policyService.ContainsParentId(id)) return BadRequest(this.BadRequestDetails("Integrity validation failed.", $"At least one Policy is associated with Sale '{id}'."));
+         //Note that to enforce validaed integrity above, this Delete action needs to constitute unit of work (currently not the case as uow is controlled by StorageController)
+         //TODO: add the above validation to sales delete service bleow (i.e. remove dependency on policy service - see ctor); requires expansion to ServiceResult to discriminate between 400 & 404 responses (uow refactoring will still be needed to enforce data integrity).
          var svcRslt = await _saleService.DeleteAsync(id);
          if (!svcRslt.Success) return NotFound();
          return NoContent();

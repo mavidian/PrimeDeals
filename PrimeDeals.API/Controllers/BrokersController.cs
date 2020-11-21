@@ -15,10 +15,12 @@ namespace PrimeDeals.API.Controllers
    public class BrokersController : ControllerBase
    {
       private readonly IBrokerService _brokerService;
+      private readonly ISaleService _saleService;
 
-      public BrokersController(IBrokerService brokerService)
+      public BrokersController(IBrokerService brokerService, ISaleService saleService)
       {
          _brokerService = brokerService;
+         _saleService = saleService;
       }
 
 
@@ -97,18 +99,23 @@ namespace PrimeDeals.API.Controllers
 
 
       /// <summary>
-      /// Remove an existing Broker.
+      /// Remove an existing Broker (as long as it has no Sales).
       /// </summary>
       /// <param name="id">ID of the Broker to remove.</param>
       /// <returns>An empty response.</returns>
       /// <response code="204">No Content - Broker successfully removed.</response>
+      /// <response code="400">Bad Request - Sale(s) for the Broker is/are present.</response>
       /// <response code="404">Not Found - no Broker for a given id.</response>
       [HttpDelete("{id}")]
       [ProducesResponseType(StatusCodes.Status204NoContent)]
+      [ProducesResponseType(StatusCodes.Status400BadRequest)]
       [ProducesResponseType(StatusCodes.Status404NotFound)]
       public async Task<IActionResult> Delete(string id)
       {
          //if (id == null) return BadRequest();  //not needed as middleware only calls this action if id is present; otherwise, it will try a different route, e.g. causing 405 (Method Not Allowed) if PUT request w/o id.
+         if (_saleService.ContainsParentId(id)) return BadRequest(this.BadRequestDetails("Integrity validation failed.", $"At least one Sale is associated with Broker '{id}'."));
+         //Note that to enforce  validaed integrity above, this Delete action needs to constitute unit of work (currently not the case as uow is controlled by StorageController)
+         //TODO: add the above validation to brokere delete service below (i.e. remove dependency on sale service - see ctor); requires expansion to ServiceResult to discriminate between 400 & 404 responses (uow refactoring will still be needed to enforce data integrity).
          var svcRslt = await _brokerService.DeleteAsync(id);
          if (!svcRslt.Success) return NotFound();
          return NoContent();

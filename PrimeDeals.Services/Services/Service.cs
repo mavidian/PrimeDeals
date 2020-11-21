@@ -33,6 +33,11 @@ namespace PrimeDeals.Services.Services
          return new ServiceResult<TGetDTO> { Value = _mapper.Map<TGetDTO>(entity) };
       }
 
+      public virtual bool ContainsParentId(string parentId)
+      {
+         return _repository.ContainsParentId(parentId);
+      }
+
       public async Task<IServiceResult> DeleteAsync(string id)
       {
          var success = await _repository.DeleteAsync(id);

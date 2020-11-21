@@ -5,7 +5,7 @@ namespace PrimeDeals.API.Controllers
    internal static class ControllerHelpers
    {
       /// <summary>
-      /// Problem details object to be returned iwth Http response 400 BadRequest
+      /// Problem details object to be returned with Http response 400 BadRequest
       /// </summary>
       /// <param name="title"></param>
       /// <param name="detail"></param>
